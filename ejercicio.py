@@ -1,41 +1,26 @@
 import pandas as pd
 
+#Creacion de dataFrames
+Parque = {
+    'parques' : ['Chicamocha', 'Tayrona', 'Mavecure', 'Chingaza'],
+    'Tipo': ['Flora', 'Fauna', 'Flora', 'Fauna'],
+    'Especie' : ['Danta', 'Oso Anteojos', 'Aguila Arpia', 'Orquidea Morada'],
+    'Riesgo' : ['alto', 'Medio', 'Bajo', 'Medio'],
+    'Ejemplares' : [5,8,7,4]
 
-ventas = pd.Series([2000, 2500, None, 1500, 1200, 1600], 
-                   index=['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'])
+}
+indice = ['uno', 'dos', 'tres', 'cuatro']
+
+df = pd.DataFrame(Parque, index= indice)
+print(df)
+
+print(df['parques'])
+print(df['Especie'])
 
 
-print("Serie original de ventas:")
-print(ventas)
+print(df.iloc[3,3])
+print(df.iloc[2,3])
+print(df.iloc[3,2])
 
-
-ventastratadas = ventas.fillna(ventas.mean())
-print("\nSerie luego de tratar los datos faltantes:")
-print(ventastratadas)
-
-
-ventasordenadas = ventastratadas.sort_values()
-print("\nVentas ordenadas de menor a mayor:")
-print(ventasordenadas)
-
-
-promedioventas = ventastratadas.mean()
-miniventas = ventastratadas.min()
-maxiventas = ventastratadas.max()
-
-print(f"\nEstadísticas básicas:")
-print(f"Promedio de ventas: {promedioventas}")
-print(f"Mínimo de ventas: {miniventas}")
-print(f"Máximo de ventas: {maxiventas}")
-
-por_encima_promedio = []
-por_debajo_promedio = []
-
-for mes in ventastratadas.index:
-    if ventastratadas[mes] > promedioventas:
-        por_encima_promedio.append(mes)
-    else:
-        por_debajo_promedio.append(mes)
-
-print("\nMeses con ventas por encima del promedio:", por_encima_promedio)
-print("Meses con ventas por debajo del promedio:", por_debajo_promedio)
+promdios = df.groupby('parques')['Ejemplares'].mean()
+print(promdios)
